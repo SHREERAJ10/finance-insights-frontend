@@ -12,7 +12,6 @@ function Auth({
   setFormData,
   submitAction,
 }) {
-
   const navigate = useNavigate();
 
   return (
@@ -64,7 +63,10 @@ function Auth({
         </form>
         <div className="text-lg text-[#11111] flex gap-1 justify-center">
           <span className="font-light">{footerText}</span>
-          <a className="font-semibold hover:underline cursor-pointer" onClick={()=>navigate(actionLink.href)}>
+          <a
+            className="font-semibold hover:underline cursor-pointer"
+            onClick={() => navigate(actionLink.href)}
+          >
             {actionLink.text}
           </a>
         </div>
