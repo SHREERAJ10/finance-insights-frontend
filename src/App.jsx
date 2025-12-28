@@ -1,9 +1,9 @@
 import { onAuthStateChanged } from "firebase/auth";
 import Auth from "./components/Auth.jsx";
-import Login from "./pages/Login.jsx";
-import SignUp from "./pages/SignUp.jsx";
+import Login from "./pages/Auth/Login.jsx";
+import SignUp from "./pages/Auth/SignUp.jsx";
 import { auth } from "../config/firebase.js";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
@@ -23,7 +23,6 @@ const router = createBrowserRouter([
 
 function App() {
   const { setUser } = useContext(AuthContext);
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {
       if (currUser) {
