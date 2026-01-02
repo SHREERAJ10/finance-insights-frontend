@@ -32,6 +32,7 @@ function Dashboard() {
                   inputType={item.type}
                   fieldNames={item.fieldNames}
                   {...item.content}
+                  route={item.route}
                   formData={formData}
                   setFormData={setFormData}
                 />

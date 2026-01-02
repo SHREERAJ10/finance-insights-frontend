@@ -1,18 +1,35 @@
-import React   from "react";
+import React, { useContext } from "react";
+import { submitFinanceData } from "./DynamicForm.jsx";
+import AuthContext from "@/context/AuthContext.jsx";
 
-function FinanceCategoryForm({placeholder, category, formData, setFormData, fieldNames, setActiveId }) {
-
-  const handleChange = (e)=>{
-    setFormData((prev)=>({
+function FinanceCategoryForm({
+  placeholder,
+  category,
+  formData,
+  setFormData,
+  fieldNames,
+  setActiveId,
+  route
+}) {
+  const handleChange = (e) => {
+    setFormData((prev) => ({
       ...prev,
-    [e.target.name]:e.target.value
-    }))
-  }
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const { user } = useContext(AuthContext);
 
   return (
     <>
       <div className="w-[85%] md:max-w-100 bg-[#FAFAFA] px-5 pt-6 py-7 border border-[#EEEEEE] shadow-lg rounded-xl">
-        <form className="flex flex-col gap-y-6">
+        <form
+          className="flex flex-col gap-y-6"
+          onSubmit={(e) => {
+            e.preventDefault();
+            submitFinanceData(user, route, formData);
+          }}
+        >
           <div className="flex flex-col gap-y-4">
             <div>
               <input
@@ -26,7 +43,14 @@ function FinanceCategoryForm({placeholder, category, formData, setFormData, fiel
             </div>
             <div className="flex items-center gap-x-20">
               <div className="flex items-center gap-x-1.5">
-                <input type="radio" name="variabilityType" id="fixed" value="fixed" checked={formData.variabilityType == "fixed"} onChange={handleChange} />
+                <input
+                  type="radio"
+                  name={fieldNames[1]}
+                  id="fixed"
+                  value="1"
+                  checked={formData.isFixed == "1"}
+                  onChange={handleChange}
+                />
                 <label
                   htmlFor="fixed"
                   className="text-[#272727] font-medium text-xl"
@@ -35,7 +59,14 @@ function FinanceCategoryForm({placeholder, category, formData, setFormData, fiel
                 </label>
               </div>
               <div className="flex items-center gap-x-1.5">
-                <input type="radio" name="variabilityType" id="variable" value="variable" checked={formData.variabilityType == "variable"} onChange={handleChange} />
+                <input
+                  type="radio"
+                  name={fieldNames[1]}
+                  id="variable"
+                  value="0"
+                  checked={formData.isFixed == "0"}
+                  onChange={handleChange}
+                />
                 <label
                   htmlFor="variable"
                   className="text-[#272727] font-medium text-xl"
@@ -47,10 +78,16 @@ function FinanceCategoryForm({placeholder, category, formData, setFormData, fiel
           </div>
 
           <div className="flex items-center justify-between">
-            <button className="bg-[#FBFBFB] text-[#414141] text-xl px-5 py-1.5 border border-[#D3D3D3] rounded-xl font-medium cursor-pointer" onClick={()=>setActiveId(null)}>
+            <button
+              className="bg-[#FBFBFB] text-[#414141] text-xl px-5 py-1.5 border border-[#D3D3D3] rounded-xl font-medium cursor-pointer"
+              onClick={() =>{
+                setFormData({}); //reset formData state when cancelled
+                setActiveId(null); 
+              }}
+            >
               Cancel
             </button>
-            <button className="bg-[#272727] text-[#FBFBFB] text-xl px-5 py-1.5 border border-[#D3D3D3] rounded-xl font-medium cursor-pointer">
+            <button type="submit" className="bg-[#272727] text-[#FBFBFB] text-xl px-5 py-1.5 border border-[#D3D3D3] rounded-xl font-medium cursor-pointer">
               Add
             </button>
           </div>

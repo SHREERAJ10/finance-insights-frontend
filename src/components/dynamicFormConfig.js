@@ -17,12 +17,13 @@ export const DYNAMIC_FORM_CONFIG = [
         name: "Expense Data",
         type: inputDataType.expenseData,
         icon: NotebookPen,
-        initialData: { expenseCategoryId: "", expenseAmount: "" },
-        fieldNames: ["expenseCategoryId", "expenseAmount"],
+        initialData: { expenseCategoryId: "", expenseAmount: "", expenseDescription:"" },
+        fieldNames: ["expenseCategoryId", "expenseAmount", "expenseDescription"],
         content: {
             selectedOption: "Expense Category",
             placeholder: "Expense Amount",
         },
+        route:"expense/data",
         inputBox: FinanceEntryForm,
     },
     {
@@ -30,12 +31,13 @@ export const DYNAMIC_FORM_CONFIG = [
         name: "Expense Category",
         icon: BanknoteArrowDown,
         type: inputDataType.expenseCategory,
-        initialData: { expenseCategory: "", variabilityType: "fixed" },
-        fieldNames: ["expenseCategory", "variabilityType"],
+        initialData: { expenseCategory: "", isFixed: "1" },
+        fieldNames: ["expenseCategory", "isFixed"],
 
         content: {
             placeholder: "Expense Category",
         },
+        route:"expense/category",
         inputBox: FinanceCategoryForm,
     },
     {
@@ -49,6 +51,7 @@ export const DYNAMIC_FORM_CONFIG = [
             selectedOption: "Income Source",
             placeholder: "Income Amount",
         },
+        route:"income/data",
         inputBox: FinanceEntryForm,
     },
     {
@@ -56,12 +59,12 @@ export const DYNAMIC_FORM_CONFIG = [
         name: "Income Source",
         icon: BanknoteArrowDown,
         type: inputDataType.incomeSource,
-        initialData: { incomeSource: "", variabilityType: "fixed" },
-        fieldNames: ["incomeSource", "variabilityType"],
+        initialData: { incomeSource: "", isFixed: "1" },
+        fieldNames: ["incomeSource", "isFixed"],
         content: {
             placeholder: "Income Source",
         },
-
+        route:"income/source",
         inputBox: FinanceCategoryForm,
     },
     {

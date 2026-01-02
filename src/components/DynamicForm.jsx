@@ -3,6 +3,20 @@ import { inputDataType } from "./dynamicFormConfig.js";
 import FinanceEntryForm from "./FinanceEntryForm.jsx";
 import FinanceCategoryForm from "./FinanceCategoryForm.jsx";
 
+export const submitFinanceData = async (user, route, data) => {
+  console.log(user);
+  const token = await user.getIdToken();
+  console.log(data);
+  await fetch(`http://localhost:3000/${route}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+};
+
 function DynamicForm({
   inputType,
   placeholder,
@@ -12,6 +26,7 @@ function DynamicForm({
   formData,
   setFormData,
   setActiveId,
+  route
 }) {
   useEffect(() => {
     setFormData(initialData);
@@ -22,7 +37,11 @@ function DynamicForm({
     fieldNames: fieldNames,
     setFormData: setFormData,
     setActiveId: setActiveId,
+    formData:formData,
+    route: route
   };
+
+  console.log(formData)
 
   const renderForm = () => {
     if (Object.keys(formData).length > 0) {
@@ -34,6 +53,8 @@ function DynamicForm({
               selectedOption={selectedOption}
               amount={formData.incomeAmount}
               categoryId={formData.incomeSourceId}
+              categoryRoute="income/source"
+              type={inputType}
             />
           );
 
@@ -43,7 +64,10 @@ function DynamicForm({
               {...commonProps}
               selectedOption={selectedOption}
               amount={formData.expenseAmount}
+              description={formData.expenseDescription}
               categoryId={formData.expenseCategoryId}
+              categoryRoute="expense/category"
+              type={inputType}
             />
           );
 
@@ -51,7 +75,6 @@ function DynamicForm({
           return (
             <FinanceCategoryForm
               {...commonProps}
-              formData={formData}
               category={formData.expenseCategory}
             />
           );
@@ -60,7 +83,6 @@ function DynamicForm({
           return (
             <FinanceCategoryForm
               {...commonProps}
-              formData={formData}
               category={formData.incomeSource}
             />
           );
@@ -71,9 +93,7 @@ function DynamicForm({
     }
   };
 
-  return <>
-    {renderForm()}
-  </>;
+  return <>{renderForm()}</>;
 }
 
 export default DynamicForm;
