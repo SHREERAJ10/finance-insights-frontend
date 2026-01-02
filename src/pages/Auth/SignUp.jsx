@@ -2,6 +2,22 @@ import React, { useState } from "react";
 import Auth from "../../components/Auth.jsx";
 import { handleSignUp } from "@/utils/AuthHandlers.jsx";
 import { SIGN_UP_FIELDS, SIGN_UP_FORM_CONTENT } from "./signUpConfig.js";
+import AuthContext from "@/context/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
+
+const initializeUser = async (username, email, password) => {
+  const user = await handleSignUp(email, password);
+  console.log(user)
+  const token = await user.getIdToken();
+  await fetch("http://localhost:3000/user/init", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ username: username }),
+  });
+};
 
 function SignUp() {
   const [signUpData, setSignUpData] = useState({
@@ -10,15 +26,44 @@ function SignUp() {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   return (
     <div className="w-full h-screen flex items-center justify-center">
-      <Auth
-        formFields={SIGN_UP_FIELDS}
-        {...SIGN_UP_FORM_CONTENT}
-        formData={signUpData}
-        setFormData={setSignUpData}
-        submitAction = {handleSignUp}
-      />
+      <div className="w-[85%] max-w-123.75 border border-[#BEBEBE] rounded-2xl bg-[#FAFAFA] px-6 pt-5 pb-7 flex flex-col gap-8">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl font-semibold">
+            {SIGN_UP_FORM_CONTENT.heading}
+          </h1>
+          <span className="text-xl">{SIGN_UP_FORM_CONTENT.subHeading}</span>
+        </div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            initializeUser(
+              signUpData.username,
+              signUpData.email,
+              signUpData.password
+            );
+          }}
+        >
+          <Auth
+            formFields={SIGN_UP_FIELDS}
+            {...SIGN_UP_FORM_CONTENT}
+            formData={signUpData}
+            setFormData={setSignUpData}
+          />
+        </form>
+        <div className="text-lg text-[#11111] flex gap-1 justify-center">
+          <span className="font-light">{SIGN_UP_FORM_CONTENT.footerText}</span>
+          <a
+            className="font-semibold hover:underline cursor-pointer"
+            onClick={() => navigate(SIGN_UP_FORM_CONTENT.actionLink.href)}
+          >
+            {SIGN_UP_FORM_CONTENT.actionLink.text}
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

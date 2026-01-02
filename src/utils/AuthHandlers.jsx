@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 export const handleLogin = (email, password) => {
 signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
+      console.log(userCredential.user)
       console.log("Login successful!");
     })
     .catch((error) => {
@@ -15,9 +16,9 @@ signInWithEmailAndPassword(auth, email, password)
 };
 
 export const handleSignUp = (email, password) => {
-  createUserWithEmailAndPassword(auth, email, password)
+  const user = createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
+      return userCredential.user;
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -25,6 +26,8 @@ export const handleSignUp = (email, password) => {
       const errorMessage = error.message;
       console.log(errorMessage);
     });
+
+  return user;
 };
 
 export const logout = () => {
