@@ -1,16 +1,85 @@
-# React + Vite
+# Fynsights
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fullstack finance insights app that helps users track income, expenses, saving goals, and get written insights based on their financial data.
 
-Currently, two official plugins are available:
+This repository contains the frontend of the application.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Live demo: [Fynsights](https://fynsight.vercel.app/)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## What this app does
 
-## Expanding the ESLint configuration
+Fynsights allows users to:
+- Add income and expenses over time
+- Create income sources and expense categories
+- Set a monthly saving goal
+- View written financial insights as data accumulates
+- Perform full CRUD operations
+- Filter, sort, and paginate records
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Insights are displayed as swiper slider cards. The UI is clean, black and white, minimal, and fully responsive.
+
+---
+
+## Tech stack
+
+- React.js
+- React Router DOM
+- Tailwind CSS
+- shadcn/ui
+- lucide-react
+- Swiper
+- react-toastify
+- uuid
+- Firebase Authentication SDK
+
+---
+
+## Authentication
+
+- Email and password authentication using Firebase Auth
+- Protected routes on the frontend
+- Firebase ID token is sent with API requests
+
+---
+
+## Environment variables
+
+Create a `.env` file in the root of the frontend project (Vite):
+
+VITE_API_KEY=""
+VITE_AUTH_DOMAIN=""
+VITE_PROJECT_ID=""
+VITE_STORAGE_BUCKET=""
+VITE_MESSAGING_SENDER_ID=""
+VITE_APP_ID=""
+
+---
+
+## Running the frontend locally
+
+1. Clone the repository
+
+```git clone https://github.com/SHREERAJ10/finance-insights-frontend.git```
+```cd finance-insights-frontend```
+
+2. Install dependencies
+
+```npm install```
+
+3. Start the development server
+
+```npm run dev```
+
+4. Build for production
+
+```npm run build```
+
+---
+
+## Notes
+
+- The frontend requires the backend API to be running
+- Make sure the API base URL is configured correctly
+- This project was built as a personal learning and hobby project
