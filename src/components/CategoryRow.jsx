@@ -53,36 +53,45 @@ function CategoryRow({
           }
         })}
 
-        {isDeleteOpen && <DeleteModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} onDelete={onDelete} id={id} deleteRoute={deleteRoute} setDataUpdated={setDataUpdated} user={user} message="Are you sure you want to delete this? If you delete this, all the records associated with this category will also be deleted." />}
+      {isDeleteOpen && (
+        <DeleteModal
+          isOpen={isDeleteOpen}
+          setIsOpen={setIsDeleteOpen}
+          onDelete={onDelete}
+          id={id}
+          deleteRoute={deleteRoute}
+          setDataUpdated={setDataUpdated}
+          user={user}
+          message="Are you sure you want to delete this? If you delete this, all the records associated with this category will also be deleted."
+        />
+      )}
 
-      <div className="flex flex-col sm:flex-row sm:items-center w-full border-b border-[#EEEEEE] bg-white hover:bg-[#F9F9F9] transition-all px-6 group">
+      <div className="flex items-center w-full border-b border-[#EEEEEE] bg-white hover:bg-[#F9F9F9] transition-all px-4 md:px-6 group">
+        <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0 py-4">
+          <span className="text-base md:text-[17px] font-semibold text-[#272727] truncate tracking-tight">
+            {category}
+          </span>
 
-  <div className="flex items-center gap-4 flex-1 min-w-0 py-4">
-    <span className="text-[17px] font-semibold text-[#272727] truncate tracking-tight">
-      {category}
-    </span>
+          <span className="inline-flex items-center px-2 py-0.5 text-[9px] md:text-[10px] bg-[#EFEFEF] text-[#757575] rounded font-bold uppercase tracking-widest shrink-0">
+            {variabilityType ? "Fixed" : "Variable"}
+          </span>
+        </div>
 
-    <span className="inline-flex items-center px-2.5 py-0.5 text-[10px] bg-[#EFEFEF] text-[#757575] rounded font-bold uppercase tracking-widest">
-      {variabilityType ? "Fixed" : "Variable"}
-    </span>
-  </div>
-  <div className="flex items-center gap-1 mt-2 sm:mt-0 sm:ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-    <button
-      onClick={() => setIsEditActive(true)}
-      className="p-2.5 text-[#757575] hover:text-[#272727] hover:bg-[#EFEFEF] rounded-full transition-all"
-      title="Edit Category"
-    >
-      <Pencil size={18} />
-    </button>
-    <button
-      onClick={() => setIsDeleteOpen(true)}
-      className="p-2.5 text-[#757575] hover:text-[#272727] hover:bg-[#EFEFEF] rounded-full transition-all"
-      title="Delete Category"
-    >
-      <Trash2 size={18} />
-    </button>
-  </div>
-</div>
+        <div className="flex items-center gap-1 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200">
+          <button
+            onClick={() => setIsEditActive(true)}
+            className="p-2 text-[#757575] active:bg-[#EFEFEF] lg:hover:bg-[#EFEFEF] lg:hover:text-[#272727] rounded-full transition-all"
+          >
+            <Pencil size={18} />
+          </button>
+          <button
+            onClick={() => setIsDeleteOpen(true)}
+            className="p-2 text-[#757575] active:bg-[#EFEFEF] lg:hover:bg-[#EFEFEF] lg:hover:text-[#272727] rounded-full transition-all"
+          >
+            <Trash2 size={18} />
+          </button>
+        </div>
+      </div>
     </>
   );
 }

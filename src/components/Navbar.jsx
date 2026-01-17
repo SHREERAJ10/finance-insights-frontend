@@ -10,21 +10,22 @@ function Navbar({ getInsight }) {
 
   return (
     <>
-      <nav className="w-full h-full px-5 py-2.5 border-b border-[#cecece] flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <SidebarTrigger />
-          <h1 className="text-3xl font-semibold text-[#3A3A3A]">
+      <nav className="w-full h-auto px-4 py-3 border-b border-[#cecece] flex justify-between items-center gap-3">
+        <div className="flex items-center gap-2 min-w-0">
+          <SidebarTrigger className="shrink-0" />
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold text-[#3A3A3A] truncate">
             Hi, {username}
           </h1>
         </div>
+
         <button
-          className="px-4 py-2.5 bg-[#272727] text-[#FBFBFB] text-lg tracking-wider rounded-xl cursor-pointer hover:brightness-110 transition-all duration-150 ease-in-out"
+          className="whitespace-nowrap px-4 py-2 md:py-2.5 bg-[#272727] text-[#FBFBFB] text-[13px] md:text-base font-medium tracking-wide rounded-xl cursor-pointer hover:bg-[#3a3a3a] active:scale-95 transition-all shrink-0 shadow-sm"
           onClick={() => {
             setIsInsightShown(true);
             getInsight();
           }}
         >
-          Generate Insights
+          View Insights
         </button>
       </nav>
     </>

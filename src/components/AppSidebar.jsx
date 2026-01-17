@@ -39,7 +39,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup className="gap-y-12 pt-6">
           <SidebarGroupLabel className="text-2xl flex flex-col items-start gap-y-0 font-urbanist">
-            <span>Finsights</span>
+            <span>Fynsights</span>
             <span className="text-sm">Built by Shreeraj</span>
           </SidebarGroupLabel>
           <SidebarGroupContent>
