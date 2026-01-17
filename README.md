@@ -18,7 +18,8 @@ Fynsights allows users to:
 - Perform full CRUD operations
 - Filter, sort, and paginate records
 
-Insights are displayed as swiper slider cards. The UI is clean, black and white, minimal, and fully responsive.
+Insights are displayed as swiper slider cards.  
+The UI is clean, black and white, minimal, and fully responsive.
 
 ---
 
@@ -48,12 +49,14 @@ Insights are displayed as swiper slider cards. The UI is clean, black and white,
 
 Create a `.env` file in the root of the frontend project (Vite):
 
+```env
 VITE_API_KEY=""
 VITE_AUTH_DOMAIN=""
 VITE_PROJECT_ID=""
 VITE_STORAGE_BUCKET=""
 VITE_MESSAGING_SENDER_ID=""
 VITE_APP_ID=""
+```
 
 ---
 
@@ -61,20 +64,28 @@ VITE_APP_ID=""
 
 1. Clone the repository
 
-```git clone https://github.com/SHREERAJ10/finance-insights-frontend.git```
-```cd finance-insights-frontend```
+```bash
+git clone https://github.com/SHREERAJ10/finance-insights-frontend.git
+cd finance-insights-frontend
+```
 
 2. Install dependencies
 
-```npm install```
+```bash
+npm install
+```
 
 3. Start the development server
 
-```npm run dev```
+```bash
+npm run dev
+```
 
 4. Build for production
 
-```npm run build```
+```bash
+npm run build
+```
 
 ---
 
