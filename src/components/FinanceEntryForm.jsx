@@ -55,7 +55,7 @@ function FinanceEntryForm({
     document.body.style.overflow = "hidden";
     const fetchCategoryData = async () => {
       const token = await user.getIdToken();
-      const response = await fetch(`http://localhost:3000/${categoryRoute}`, {
+      const response = await fetch(`https://finance-insights-backend.onrender.com/${categoryRoute}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 export const fetchCategoryData = async (user, categoryRoute) => {
   const token = await user.getIdToken();
-  const response = await fetch(`http://localhost:3000/${categoryRoute}`, {
+  const response = await fetch(`https://finance-insights-backend.onrender.com/${categoryRoute}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -12,7 +12,7 @@ export const fetchCategoryData = async (user, categoryRoute) => {
 
 export const submitFinanceData = async (user, route, data) => {
   const token = await user.getIdToken();
-  const response = await fetch(`http://localhost:3000/${route}`, {
+  const response = await fetch(`https://finance-insights-backend.onrender.com/${route}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const submitFinanceData = async (user, route, data) => {
 
 export const updateFinanceData = async (user, route, data) => {
   const token = await user.getIdToken();
-  const response = await fetch(`http://localhost:3000/${route}`, {
+  const response = await fetch(`https://finance-insights-backend.onrender.com/${route}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export const fetchData = async (user, url) => {
 
 export const onDelete = async (user, route) => {
   const token = await user.getIdToken();
-  const response = await fetch(`http://localhost:3000/${route}`, {
+  const response = await fetch(`https://finance-insights-backend.onrender.com/${route}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

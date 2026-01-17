@@ -9,7 +9,7 @@ const initializeUser = async (username, email, password) => {
   try {
     const user = await handleSignUp(username, email, password);
     const token = await user.getIdToken();
-    await fetch("http://localhost:3000/user/init", {
+    await fetch("https://finance-insights-backend.onrender.com/user/init", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

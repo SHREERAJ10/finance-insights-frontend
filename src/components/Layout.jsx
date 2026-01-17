@@ -26,7 +26,7 @@ function Layout() {
   const getInsight = async () => {
     try {
       const token = await user.getIdToken();
-      const response = await fetch("http://localhost:3000/insight", {
+      const response = await fetch("https://finance-insights-backend.onrender.com/insight", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

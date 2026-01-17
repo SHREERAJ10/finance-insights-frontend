@@ -22,7 +22,7 @@ function SavingGoalDisplay({ user }) {
 
   useEffect(() => {
     (async () => {
-      const response = await fetchData(user, "http://localhost:3000/saving");
+      const response = await fetchData(user, "https://finance-insights-backend.onrender.com/saving");
       setSavingGoalData(response.data || {});
       setDataUpdated(false);
     })();
