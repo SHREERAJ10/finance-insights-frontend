@@ -73,7 +73,7 @@ function DataPage() {
             setExpenseData(
               await fetchData(
                 user,
-                `http://localhost:3000/expense/data${`?${searchParams.toString()}`}`
+                `https://finance-insights-backend.onrender.com/expense/data${`?${searchParams.toString()}`}`
               )
             );
             setCategoryOptions(
@@ -84,7 +84,7 @@ function DataPage() {
             setIncomeData(
               await fetchData(
                 user,
-                `http://localhost:3000/income/data?${`?${searchParams.toString()}`}`
+                `https://finance-insights-backend.onrender.com/income/data?${`?${searchParams.toString()}`}`
               )
             );
             setCategoryOptions(await fetchCategoryData(user, "income/source"));
