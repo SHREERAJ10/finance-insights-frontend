@@ -3,6 +3,7 @@ import Auth from "../../components/Auth.jsx";
 import { handleLogin } from "@/utils/AuthHandlers.jsx";
 import { LOGIN_FIELDS, LOGIN_FORM_CONTENT } from "./loginConfig.js";
 import { useNavigate } from "react-router-dom";
+import { notifyUser, toastType } from "@/utils/ToastNotifications.js";
 
 function Login() {
   const [loginData, setLoginData] = useState({
@@ -22,9 +23,14 @@ function Login() {
           <span className="text-xl">{LOGIN_FORM_CONTENT.subHeading}</span>
         </div>
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            handleLogin(loginData.email, loginData.password);
+            try {
+              await handleLogin(loginData.email, loginData.password);
+              navigate("/");
+            } catch (err) {
+              notifyUser(err.message, toastType.warn);
+            }
           }}
         >
           <Auth

@@ -1,7 +1,7 @@
 import AuthContext from "@/context/AuthContext.jsx";
 import React, { useContext, useEffect, useState } from "react";
-import { submitFinanceData } from "./DynamicForm.jsx";
 import { inputDataType } from "./dynamicFormConfig.js";
+import { notifyUser, toastType } from "@/utils/ToastNotifications.js";
 
 function FinanceEntryForm({
   selectedOption,
@@ -16,9 +16,15 @@ function FinanceEntryForm({
   formData,
   type,
   description,
+  submitAction,
+  setDataUpdated,
+  prefillSelectedOption,
+  prefillAmount,
+  prefillDescription,
+  prefillCategoryId,
+  submitText="Add",
 }) {
   const handleChange = (e) => {
-    console.log("handling change");
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -29,6 +35,24 @@ function FinanceEntryForm({
   const [categoryOptions, setCategoryOptions] = useState([]);
 
   useEffect(() => {
+    if (prefillAmount !== "") {
+      setFormData((prev) => ({
+        ...prev,
+        [fieldNames[0]]: prefillCategoryId,
+        [fieldNames[1]]: prefillAmount || "0",
+        [fieldNames[2]]: prefillDescription || "",
+      }));
+    }
+  }, [
+    prefillCategoryId,
+    prefillAmount,
+    fieldNames,
+    setFormData,
+    prefillDescription,
+  ]);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
     const fetchCategoryData = async () => {
       const token = await user.getIdToken();
       const response = await fetch(`http://localhost:3000/${categoryRoute}`, {
@@ -41,24 +65,36 @@ function FinanceEntryForm({
       setCategoryOptions((await response.json()).data);
     };
     fetchCategoryData();
+    return () => {
+      document.body.style.overflow = "unset";
+    };
   }, []);
-
-  console.log(categoryOptions);
 
   return (
     <>
-      <div className="w-[85%] md:max-w-100 bg-[#FAFAFA] px-5 pt-6 py-7 border border-[#EEEEEE] shadow-lg rounded-xl">
+      <div className="animate-in fade-in duration-300 w-[85%] md:max-w-100 bg-[#FAFAFA] px-5 pt-6 py-7 border border-[#b6b6b6] shadow-lg rounded-xl">
         <form
           className="flex flex-col gap-y-6"
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            submitFinanceData(user, route, formData);
+            const response = await submitAction(user, route, formData);
+            const responseText = await response.json();
+            if (setDataUpdated != undefined) {
+              //only update when editing/updating data
+              setDataUpdated(true);
+            }
+            if (response.status == 200) {
+              notifyUser(responseText.message, toastType.success);
+              setActiveId(null);
+            } else {
+              notifyUser(responseText.error, toastType.warn);
+            }
           }}
         >
           <div>
             <select
               name={fieldNames[0]}
-              value={categoryId}
+              value={formData[fieldNames[0]]}
               className="w-full pl-5 py-2 focus:outline-none pr-1 placeholder:font-medium text-lg placeholder:text-xl rounded-xl border border-[#D3D3D3] placeholder:text-[#7C7C7C] text-[#272727"
               onChange={handleChange}
             >
@@ -83,7 +119,7 @@ function FinanceEntryForm({
               type="text"
               placeholder={placeholder}
               name={fieldNames[1]}
-              value={amount}
+              value={formData[fieldNames[1]]}
               className="w-full pl-5 py-2 focus:outline-none pr-1 placeholder:font-medium text-lg placeholder:text-xl rounded-xl border border-[#D3D3D3] placeholder:text-[#7C7C7C] text-[#272727]"
               onChange={handleChange}
             />
@@ -93,7 +129,7 @@ function FinanceEntryForm({
               <textarea
                 name={fieldNames[2]}
                 placeholder="Expense Description"
-                value={description}
+                value={formData[fieldNames[2]]}
                 className="w-full pl-5 py-2 focus:outline-none pr-1 placeholder:font-medium text-lg placeholder:text-xl rounded-xl border border-[#D3D3D3] placeholder:text-[#7C7C7C] text-[#272727]"
                 onChange={handleChange}
                 rows="3"
@@ -115,7 +151,7 @@ function FinanceEntryForm({
               type="submit"
               className="bg-[#272727] text-[#FBFBFB] text-xl px-5 py-1.5 border border-[#D3D3D3] rounded-xl font-medium cursor-pointer"
             >
-              Add
+              {submitText}
             </button>
           </div>
         </form>

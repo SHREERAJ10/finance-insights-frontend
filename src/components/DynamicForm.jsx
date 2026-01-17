@@ -2,20 +2,8 @@ import React, { useEffect } from "react";
 import { inputDataType } from "./dynamicFormConfig.js";
 import FinanceEntryForm from "./FinanceEntryForm.jsx";
 import FinanceCategoryForm from "./FinanceCategoryForm.jsx";
-
-export const submitFinanceData = async (user, route, data) => {
-  console.log(user);
-  const token = await user.getIdToken();
-  console.log(data);
-  await fetch(`http://localhost:3000/${route}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  });
-};
+import SavingGoalForm from "./SavingGoalForm.jsx";
+import { submitFinanceData } from "@/utils/api.js";
 
 function DynamicForm({
   inputType,
@@ -38,10 +26,9 @@ function DynamicForm({
     setFormData: setFormData,
     setActiveId: setActiveId,
     formData:formData,
-    route: route
+    route: route,
+    submitAction:submitFinanceData
   };
-
-  console.log(formData)
 
   const renderForm = () => {
     if (Object.keys(formData).length > 0) {
@@ -83,9 +70,17 @@ function DynamicForm({
           return (
             <FinanceCategoryForm
               {...commonProps}
-              category={formData.incomeSource}
+              category={formData.expenseCategory}
             />
           );
+        case inputDataType.savingGoal:
+          return (
+            <SavingGoalForm
+              {...commonProps}
+              amount = {formData.savingGoalAmount}
+            />
+          );
+
 
         default:
           return null;

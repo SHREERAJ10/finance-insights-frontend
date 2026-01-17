@@ -84,6 +84,13 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --toastify-color-progress-success: #3A3A3A;
+  --toastify-color-progress-warning: #3A3A3A;
+  --toastify-color-progress-info: #3A3A3A;
+  --toastify-icon-color-success: #3A3A3A; 
+  --toastify-icon-color-warning: #3A3A3A;
+  --toastify-icon-color-info: #3A3A3A;
+  --toastify-font-family:'Urbanist', sans-serif,
 }
 
 .dark {

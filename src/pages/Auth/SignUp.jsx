@@ -2,21 +2,24 @@ import React, { useState } from "react";
 import Auth from "../../components/Auth.jsx";
 import { handleSignUp } from "@/utils/AuthHandlers.jsx";
 import { SIGN_UP_FIELDS, SIGN_UP_FORM_CONTENT } from "./signUpConfig.js";
-import AuthContext from "@/context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
+import { notifyUser, toastType } from "@/utils/ToastNotifications.js";
 
 const initializeUser = async (username, email, password) => {
-  const user = await handleSignUp(email, password);
-  console.log(user)
-  const token = await user.getIdToken();
-  await fetch("http://localhost:3000/user/init", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ username: username }),
-  });
+  try {
+    const user = await handleSignUp(username, email, password);
+    const token = await user.getIdToken();
+    await fetch("http://localhost:3000/user/init", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ username: username }),
+    });
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 function SignUp() {
@@ -38,13 +41,18 @@ function SignUp() {
           <span className="text-xl">{SIGN_UP_FORM_CONTENT.subHeading}</span>
         </div>
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            initializeUser(
-              signUpData.username,
-              signUpData.email,
-              signUpData.password
-            );
+            try {
+              await initializeUser(
+                signUpData.username,
+                signUpData.email,
+                signUpData.password
+              );
+              navigate('/');
+            } catch (err) {
+              notifyUser(err.message, toastType.warn);
+            }
           }}
         >
           <Auth

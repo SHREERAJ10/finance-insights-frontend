@@ -1,32 +1,14 @@
-// import { useNavigate } from "react-router-dom";
 import getIconFromName from "../utils/getIconFromName.jsx";
 
 function Auth({
   formFields,
-  // heading,
-  // subHeading,
   submitText,
-  // footerText,
-  // actionLink,
   formData,
   setFormData,
-  // submitAction,
 }) {
-  // const navigate = useNavigate();
 
   return (
     <>
-      {/* <div className="w-[85%] max-w-123.75 border border-[#BEBEBE] rounded-2xl bg-[#FAFAFA] px-6 pt-5 pb-7 flex flex-col gap-8">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-semibold">{heading}</h1>
-          <span className="text-xl">{subHeading}</span>
-        </div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            submitAction(user, formData.email, formData.password);
-          }}
-        > */}
       <div className="flex flex-col gap-9">
         <div className="flex flex-col gap-5">
           {formFields.map((field) => {
@@ -60,17 +42,6 @@ function Auth({
           {submitText}
         </button>
       </div>
-      {/* </form>
-        <div className="text-lg text-[#11111] flex gap-1 justify-center">
-          <span className="font-light">{footerText}</span>
-          <a
-            className="font-semibold hover:underline cursor-pointer"
-            onClick={() => navigate(actionLink.href)}
-          >
-            {actionLink.text}
-          </a>
-        </div>
-      </div> */}
     </>
   );
 }

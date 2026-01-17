@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar.jsx";
 import { DataDropdown } from "@/components/DataDropdown.jsx";
-import { logout } from "@/utils/AuthHandlers.jsx";
 import { DYNAMIC_FORM_CONFIG } from "@/components/dynamicFormConfig.js";
 import DynamicForm from "@/components/DynamicForm.jsx";
 
@@ -12,10 +10,7 @@ function Dashboard() {
   return (
     <>
       <div className="flex flex-col gap-y-16">
-        <header>
-          <Navbar />
-        </header>
-        <section className="flex justify-center">
+        <section className="flex justify-center pt-16">
           <DataDropdown
             dropdownItems={DYNAMIC_FORM_CONFIG}
             setActiveId={setActiveId}
@@ -40,13 +35,6 @@ function Dashboard() {
             }
           })}
         </div>
-
-        <button
-          className="text-2xl cursor-pointer hover:underline"
-          onClick={logout}
-        >
-          Logout
-        </button>
       </div>
     </>
   );

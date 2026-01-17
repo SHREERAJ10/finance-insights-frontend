@@ -2,6 +2,7 @@ import { BanknoteArrowDown, NotebookPen, PiggyBank } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 import FinanceEntryForm from "./FinanceEntryForm.jsx";
 import FinanceCategoryForm from "./FinanceCategoryForm.jsx";
+import SavingGoalForm from "./SavingGoalForm.jsx";
 
 export const inputDataType = {
     incomeData: "INCOME_DATA",
@@ -24,20 +25,24 @@ export const DYNAMIC_FORM_CONFIG = [
             placeholder: "Expense Amount",
         },
         route:"expense/data",
+        editRoute:"expense/data/",
+        deleteRoute:"expense/data/",
         inputBox: FinanceEntryForm,
+        categoryRoute:"expense/category"
     },
     {
         id: uuidv4(),
         name: "Expense Category",
         icon: BanknoteArrowDown,
         type: inputDataType.expenseCategory,
-        initialData: { expenseCategory: "", isFixed: "1" },
+        initialData: { expenseCategory: "", isFixed: "0" },
         fieldNames: ["expenseCategory", "isFixed"],
 
         content: {
             placeholder: "Expense Category",
         },
         route:"expense/category",
+        editRoute:"expense/category/",
         inputBox: FinanceCategoryForm,
     },
     {
@@ -52,6 +57,9 @@ export const DYNAMIC_FORM_CONFIG = [
             placeholder: "Income Amount",
         },
         route:"income/data",
+        editRoute:"income/data/",
+        categoryRoute:"income/source",
+        deleteRoute:"income/data/",
         inputBox: FinanceEntryForm,
     },
     {
@@ -59,12 +67,13 @@ export const DYNAMIC_FORM_CONFIG = [
         name: "Income Source",
         icon: BanknoteArrowDown,
         type: inputDataType.incomeSource,
-        initialData: { incomeSource: "", isFixed: "1" },
+        initialData: { incomeSource: "", isFixed: "0" },
         fieldNames: ["incomeSource", "isFixed"],
         content: {
             placeholder: "Income Source",
         },
         route:"income/source",
+        editRoute:"income/source/",
         inputBox: FinanceCategoryForm,
     },
     {
@@ -72,5 +81,13 @@ export const DYNAMIC_FORM_CONFIG = [
         name: "Set Saving Goal",
         icon: PiggyBank,
         type: inputDataType.savingGoal,
+        initialData: { savingGoalAmount: "0", },
+        fieldNames: ["savingGoalAmount"],
+        content: {
+            placeholder: "Saving Goal Amount",
+        },
+        route:"saving",
+        editRoute:"saving/",
+        inputBox: SavingGoalForm,
     },
 ]

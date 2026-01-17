@@ -1,31 +1,17 @@
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  BanknoteArrowDown,
-  BanknoteArrowUp,
-  NotebookPen,
-  PiggyBank,
-  Plus,
-} from "lucide-react";
+import { Plus } from "lucide-react";
 
 export function DataDropdown({ dropdownItems, setActiveId }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="pl-2.5 pr-5 py-2 bg-[#272727] text-[#FBFBFB] text-2xl cursor-pointer flex items-center gap-x-1 rounded-[36px]">
+        <button className="pl-2.5 pr-5 py-2 bg-[#272727] text-[#FBFBFB] text-xl cursor-pointer flex items-center gap-x-1 rounded-2xl tracking-wide">
           <Plus size={32} strokeWidth={1.5} />
           <span>Add Data</span>
         </button>

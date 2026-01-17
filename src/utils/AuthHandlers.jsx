@@ -1,32 +1,30 @@
 import { auth } from "../../config/firebase.js";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
 
-export const handleLogin = (email, password) => {
-signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      console.log(userCredential.user)
-      console.log("Login successful!");
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      console.log(errorCode);
-      const errorMessage = error.message;
-      console.log(errorMessage);
-    });
+export const handleLogin = async (email, password) => {
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+  const user = userCredential.user;
 };
 
-export const handleSignUp = (email, password) => {
-  const user = createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      return userCredential.user;
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      console.log(errorCode);
-      const errorMessage = error.message;
-      console.log(errorMessage);
-    });
-
+export const handleSignUp = async (username, email, password) => {
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+  const user = userCredential.user;
+  await updateProfile(user, {
+    displayName: username,
+  });
   return user;
 };
 
